@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Account</title>
+        <link rel="stylesheet" href="static/css/manageAccount.css">
+    </head>
+    <body>
+        <h2 class="display-3">Account</h2>
+        <form name="contactForm" method="POST" action="/manageAccount/editAccount" onsubmit="return validateForm()">
+            <div class="input-group mb-3">
+                <input type="hidden" name="id" value="{{currentAccount.id}}">
+                <input class="form-control" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="userID" placeholder="Enter user's ID (number)" value="{{currentAccount.userID}}" readonly>
+                <input class="form-control" type="text" name="password" value="{{currentAccount.password}}" placeholder="Enter password" minlength="6">
+                <div class="input-group-append" id="button-addon2">
+                    <button class="btn btn-outline-secondary" type="submit" name="clickBtn" onclick="return confirmation()" value="update">Update</button>
+                </div>
+            </div>
+        </form>
+        {% if currentAccount.admin == 0: %}
+        <h2 class="display-3">Info</h2>
+        <form method="POST" action="/manageAccount/editInfo">
+            <p>
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" name="stuID" value="{{currentStudent.stuID}}" readonly>
+                </div>
+            </p>
+            <p>
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" name="name" value="{{currentStudent.name}}" placeholder="Name">
+                </div>
+            </p>
+            <p>
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" name="dob" value="{{currentStudent.dob}}" placeholder="Date of birth">
+                </div>
+            </p>
+            <p>
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" name="email" value="{{currentStudent.email}}" placeholder="Email">
+                </div>
+            </p>
+            <p>
+                <div class="input-group mb-3">
+                    <input class="form-control" type="text" name="phoneNum" value="{{currentStudent.phoneNum}}" placeholder="Phone number">
+                </div>
+            </p>
+            <p class="input-group-append" id="button-addon2">
+                <button class="btn btn-outline-secondary" type="submit" name="clickBtn" onclick="return confirmation()" value="update">Update</button>
+            </p>
+        </form>
+        {% endif %}
+        <form method="POST" action="/logout">
+            <div class="input-group-append" id="button-addon">
+                <button class="btn btn-outline-primary" type="submit" value="logout">Logout</button>
+            </div>
+        </form>
+    </body>
+</html>
+<script>    
+function validateForm() {
+    var Password = document.forms["contactForm"]["password"].value;
+  if (Password == "") {
+    alert("Password part is not filled in");
+    return false;
+  }
+}
+function confirmation(){
+    return confirm("Are you sure?");    
+}
+</script>

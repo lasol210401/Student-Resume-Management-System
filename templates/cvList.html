@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CV List</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/cvList.css') }}"/>
+    </head>
+    <body>
+        <h1>CV of all student</h1>
+        <div class="container">
+            <h2 class="display-3">CV List</h2>
+            <form method="GET" action="/cvList/searchCV">
+                <div class="input-group mb-1">
+                    <input type="text" class="form-control-1" name="q" id="q" placeholder="Search...">
+                    <div class="input-group-append" id="button-addon2">
+                        <button type="submit" class="btn btn-outline-third">Search</button>
+                    </div>
+                </div>
+            </form>
+            {% for student in studentList: %}
+                <p> 
+                    <form method="POST" action="/viewCV">
+                        <div class="input-group mb-3">
+                            <input type="hidden" name="id" value="{{student.id}}">
+                            <input class="form-control" type="text" name="stuID" value="{{student.stuID}}" readonly>
+                            <input class="form-control" type="text" name="name" value="{{student.name}}" readonly>
+                            
+                            <div class="input-group-append" id="button-addon2">
+                                <button class="btn btn-outline-secondary" type="submit" value="view">ViewCV</button>
+                            </div>
+                        </div>
+                    </form> 
+                </p>
+            {% endfor %} 
+        </div>
+    </body>
+</html>
